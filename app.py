@@ -76,7 +76,6 @@ def delete(id):
     conn.close()
     return redirect(url_for('dashboard'))
 
-init_db()
-
 if __name__ == '__main__':
+    init_db()
     app.run(debug=True, port=5000)
