@@ -60,12 +60,15 @@ def submit():
 
 @app.route('/dashboard')
 def dashboard():
-    conn = sqlite3.connect(DB)
-    c = conn.cursor()
-    c.execute('SELECT * FROM candidatures ORDER BY date_soumission DESC')
-    rows = c.fetchall()
-    conn.close()
-    return render_template('dashboard.html', candidatures=rows)
+    try:
+        conn = sqlite3.connect(DB)
+        c = conn.cursor()
+        c.execute('SELECT * FROM candidatures ORDER BY date_soumission DESC')
+        rows = c.fetchall()
+        conn.close()
+        return render_template('dashboard.html', candidatures=rows)
+    except Exception as e:
+        return f"Error: {str(e)}"
 
 @app.route('/delete/<int:id>', methods=['POST'])
 def delete(id):
